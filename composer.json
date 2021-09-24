@@ -1,0 +1,24 @@
+{
+  "name": "davicruzof/apicopiloto",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Davi cruz",
+      "email": "daviondejesus@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Source\\": "source/"
+    },
+    "files": [
+      "source/Config.php"
+    ]
+  },
+  "require": {
+    "slim/slim": "3.11.0",
+    "coffeecode/datalayer": "1.1.8"
+  }
+}
