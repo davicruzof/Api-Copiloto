@@ -19,8 +19,6 @@
         {
             $data = $request->getParsedBody();
 
-            $this->cleanStrings($data);
-
             $errors = $this->validaDados($data);
             if ($errors)
                 return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(400);
@@ -43,12 +41,6 @@
 
             return $response->withJson(['message' => $res ? 'Usuário cadastrado com sucesso!' : 'Não foi possível realizar o cadastro, tente novamente!'])
                 ->withStatus($res ? 200 : 500);
-        }
-
-        private function cleanStrings(&$data)
-        {
-            foreach ($data as $key => $elem)
-                $data[$key] =  preg_replace('/\\s\\s+/', ' ', $elem);
         }
 
         private function validaDados($data)
