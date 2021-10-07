@@ -19,6 +19,7 @@
   },
   "require": {
     "slim/slim": "3.11.0",
-    "coffeecode/datalayer": "1.1.8"
+    "coffeecode/datalayer": "1.1.8",
+    "phpmailer/phpmailer": "v6.5.1"
   }
 }

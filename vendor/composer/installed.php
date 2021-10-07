@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '08abf2cbc3c98daf8d9de296b4ff273a4af322bd',
         'name' => 'davicruzof/apicopiloto',
         'dev' => true,
     ),
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'davicruzof/apicopiloto' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '08abf2cbc3c98daf8d9de296b4ff273a4af322bd',
             'dev_requirement' => false,
         ),
         'nikic/fast-route' => array(
@@ -44,6 +44,15 @@
             'install_path' => __DIR__ . '/../nikic/fast-route',
             'aliases' => array(),
             'reference' => '181d480e08d9476e61381e04a71b34dc0432e812',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.5.1',
+            'version' => '6.5.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => 'dd803df5ad7492e1b40637f7ebd258fee5ca7355',
             'dev_requirement' => false,
         ),
         'pimple/pimple' => array(

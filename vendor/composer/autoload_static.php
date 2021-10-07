@@ -21,6 +21,7 @@ class ComposerStaticInit15fb377d04340ba9900199c93d3b669c
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'I' => 
         array (
@@ -52,6 +53,10 @@ class ComposerStaticInit15fb377d04340ba9900199c93d3b669c
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Interop\\Container\\' => 
         array (
