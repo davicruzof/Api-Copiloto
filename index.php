@@ -14,12 +14,12 @@
     ]);
 
     $app->group('/auth', function () use ($app){
+        $app->get('/terms',Terms::class . ":terms");
         $app->post('/create', User::class . ":insert");
-        $app->post('/password', User::class . ":createPassword");
+        $app->post('/veicle', Veicle::class . ':insert');
         $app->post('/token', Token::class . ":validateToken");
+        $app->post('/password', User::class . ":createPassword");
+        $app->post('/recovery', Token::class . ":recovery_password");
     });
-
-    $app->get('/terms',Terms::class . ":terms");
-    $app->post('/veicle', Veicle::class . ':insert');
 
     $app->run();

@@ -6,7 +6,6 @@
     use CoffeeCode\DataLayer\DataLayer;
     use Psr\Http\Message\RequestInterface;
     use Psr\Http\Message\ResponseInterface;
-    use Source\Controllers\Token;
 
     final class User extends DataLayer
     {
@@ -57,8 +56,9 @@
             if($res)
                 $result = (new Token())->insert($user->data());
                 if($result)
-                    return $response->withJson(['message' => 'Um token foi enviado para o seu email'])->withStatus(200);
-            return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(500);
+                    return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+
+            return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(204);
         }
 
         public function createPassword(RequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -69,16 +69,48 @@
             if ($errors)
                 return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(400);
 
-            $user = (new User())->findById($data["id"]);
+            if(!is_numeric($data['idUser']))
+                return $response->withJson(["message" => "Usuário inválido!"])->withStatus(204);
+
+            $user = (new User())->findById($data["idUser"]);
 
             if (is_null($user))
-                return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(400);
+                return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(204);
 
             $user->senha = md5($data['senha']);
             $res = $user->save();
 
             if ($res)
                 return $response->withJson(["message" => "Senha criada com sucesso!"])->withStatus(200);
+
+            return $response->withJson(["message" => "Erro ao inserir senha!"])->withStatus(204);
+        }
+
+        public function recovery_password(RequestInterface $request, ResponseInterface $response): ResponseInterface
+        {
+            $data = $request->getParsedBody();
+
+            $errors = $this->validateData($data);
+
+            if ($errors)
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(400);
+
+            if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(204);
+
+            $existUser = $this->getUser($data["email"]);
+
+            if (!$existUser)
+                return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(204);
+
+            $user = (new User())->find('email = :e',"e={$data['email']}")->fetch();
+
+            $result = (new Token())->insert($user->data());
+
+            if($result)
+                return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+
+            return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(204);
         }
 
         private function getUser($email): bool
