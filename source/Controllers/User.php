@@ -30,7 +30,7 @@
             $existUser = $this->getUser($data["email"]);
 
             if ($existUser)
-                return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
+                return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(204);
 
             if(strlen($data['telefone']) > 15)
                 return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(400);
@@ -58,7 +58,7 @@
                 if($result)
                     return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
 
-            return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(204);
+            return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(500);
         }
 
         public function createPassword(RequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -83,7 +83,7 @@
             if ($res)
                 return $response->withJson(["message" => "Senha criada com sucesso!"])->withStatus(200);
 
-            return $response->withJson(["message" => "Erro ao inserir senha!"])->withStatus(204);
+            return $response->withJson(["message" => "Erro ao inserir senha!"])->withStatus(500);
         }
 
         public function recovery_password(RequestInterface $request, ResponseInterface $response): ResponseInterface
@@ -110,7 +110,7 @@
             if($result)
                 return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
 
-            return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(204);
+            return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(500);
         }
 
         private function getUser($email): bool
