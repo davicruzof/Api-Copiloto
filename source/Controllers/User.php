@@ -13,7 +13,7 @@
         {
             parent::__construct("user", [
                 "nome", "data_nascimento", "email", "telefone", "sexo"
-            ], "id", true);
+            ], "idUser", true);
         }
 
         public function insert(RequestInterface $request, ResponseInterface $response): ResponseInterface
