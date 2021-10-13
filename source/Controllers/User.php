@@ -22,10 +22,10 @@
 
             $errors = $this->validateData($data);
             if ($errors)
-                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(400);
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
 
             if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
-                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(400);
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
 
             $existUser = $this->getUser($data["email"]);
 
@@ -33,17 +33,17 @@
                 return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
 
             if(strlen($data['telefone']) > 15)
-                return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(400);
+                return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(200);
 
-            if($data['sexo'] != "f" && $data['sexo'] != "m")
-                return $response->withJson(["message" => "Sexo inválido!"])->withStatus(400);
+            if($data['sexo'] != "Feminino" && $data['sexo'] != "Masculino")
+                return $response->withJson(["message" => "Sexo inválido!"])->withStatus(200);
 
             $date = str_replace("-","/",$data["data_nascimento"]);
 
             $date = explode("/",$date);
 
             if(!checkdate(intval($date[1]),intval($date[2]),intval($date[0])))
-                return $response->withJson(["message" => "Data de nascimento inválido!"])->withStatus(400);
+                return $response->withJson(["message" => "Data de nascimento inválido!"])->withStatus(200);
 
             $user = new User();
             $user->nome = $data["nome"];
