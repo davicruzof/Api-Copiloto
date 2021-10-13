@@ -4,7 +4,7 @@
         "driver" => "mysql",
         "host" => "us-cdbr-east-04.cleardb.com",
         "port" => "3306",
-        "dbname" => "`heroku_bb327258bc113db`",
+        "dbname" => "heroku_bb327258bc113db",
         "username" => "bb8e546052f318",
         "passwd" => "541fb054",
         "options" => [
@@ -14,8 +14,3 @@
             PDO::ATTR_CASE => PDO::CASE_NATURAL
         ]
     ]);
-
-
-    // b45d0a6111c3dc
-    // 116de154
-    // us-cdbr-east-04.cleardb.com
