@@ -2,7 +2,7 @@
 
     define("DATA_LAYER_CONFIG", [
         "driver" => "mysql",
-        "host" => "localhost",
+        "host" => "us-cdbr-east-04.cleardb.com",
         "port" => "3306",
         "dbname" => "heroku_64cf063fa9a66ff",
         "username" => "b45d0a6111c3dc",
