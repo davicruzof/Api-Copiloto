@@ -4,9 +4,9 @@
         "driver" => "mysql",
         "host" => "localhost",
         "port" => "3306",
-        "dbname" => "copiloto",
-        "username" => "root",
-        "passwd" => "",
+        "dbname" => "heroku_64cf063fa9a66ff",
+        "username" => "b45d0a6111c3dc",
+        "passwd" => "116de154",
         "options" => [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -14,3 +14,8 @@
             PDO::ATTR_CASE => PDO::CASE_NATURAL
         ]
     ]);
+
+
+    // b45d0a6111c3dc
+    // 116de154
+    // us-cdbr-east-04.cleardb.com
