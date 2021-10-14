@@ -113,6 +113,31 @@
             return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(200);
         }
 
+        public function login(RequestInterface $request, ResponseInterface $response): ResponseInterface
+        {
+            $data = $request->getParsedBody();
+
+            $errors = $this->validateData($data);
+            if ($errors)
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
+
+            if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
+
+            $senha = md5($data['senha']);
+
+            $user = (new User())->find("email = :e and senha = :s", "e={$data["email"]}&s={$senha}")->fetch();
+
+            if (is_null($user))
+                return $response->withJson(["message" => "Email ou senha invalido!"])->withStatus(200);
+
+            return $response->withJson([
+                "message" => "Login com sucesso!",
+                "user" => $user->data()
+            ])->withStatus(200);
+
+        }
+
         private function getUser($email): bool
         {
             $user = (new User())->find("email = :e", "e={$email}")->fetch();
