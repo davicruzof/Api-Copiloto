@@ -20,7 +20,7 @@
         $app->post('/veicle', Veicle::class . ':insert');
         $app->post('/token', Token::class . ":validateToken");
         $app->post('/password', User::class . ":createPassword");
-        $app->post('/recovery', Token::class . ":recovery_password");
+        $app->post('/recovery', User::class . ":recovery_password");
     });
 
     $app->run();
