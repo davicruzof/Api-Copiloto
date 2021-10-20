@@ -93,15 +93,15 @@
             $errors = $this->validateData($data);
 
             if ($errors)
-                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(204);
 
             if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
-                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(204);
 
             $existUser = $this->getUser($data["email"]);
 
             if (!$existUser)
-                return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(200);
+                return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(204);
 
             $user = (new User())->find('email = :e',"e={$data['email']}")->fetch();
 
@@ -110,7 +110,7 @@
             if($result)
                 return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
 
-            return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(200);
+            return $response->withJson(['message' => 'Não foi possivel enviar o código para o seu email'])->withStatus(204);
         }
 
         public function login(RequestInterface $request, ResponseInterface $response): ResponseInterface
