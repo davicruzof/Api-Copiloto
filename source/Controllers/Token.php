@@ -81,14 +81,14 @@
             $errors = $this->validateData($data);
 
             if ($errors)
-                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(400);
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
 
             $token_valid = md5($data['token']);
 
             $tk = (new Token())->find("token = :tk","tk={$token_valid}")->fetch();
 
             if(is_null($tk))
-                return $response->withJson(["message" => "Código inválido!"])->withStatus(204);
+                return $response->withJson(["message" => "Código inválido!"])->withStatus(200);
 
             if(intval($tk->expired) < time()) {
                 $tk->destroy();
