@@ -160,7 +160,7 @@
             $res = $user->save();
 
             if($res)
-                return $response->withJson(["message" => "Senha atualizada com sucesso!"])->withStatus(200);
+                return $response->withJson(["message" => "Senha criada com sucesso!"])->withStatus(200);
 
             return $response->withJson(["message" => $user->fail()->getMessage()])->withStatus(200);
         }
