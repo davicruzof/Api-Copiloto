@@ -149,9 +149,9 @@
             if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
                 return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
 
-            $senha = md5($data['senha']);
-
             $user = (new User())->find("email = :e ", "e={$data["email"]}")->fetch();
+
+            $senha = md5($data['senha']);
 
             if (is_null($user))
                 return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
