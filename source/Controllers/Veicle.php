@@ -51,7 +51,7 @@
             if($res)
                 return $response->withJson(["message" => "Veículo inserido!"])->withStatus(200);
 
-            return $response->withJson(["message" => $veicle->fail()])->withStatus(200);
+            return $response->withJson(["message" => $user->id])->withStatus(200);
 
         }
 
