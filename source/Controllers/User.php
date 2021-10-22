@@ -138,6 +138,33 @@
 
         }
 
+        public function update_password(RequestInterface $request, ResponseInterface $response): ResponseInterface
+        {
+            $data = $request->getParsedBody();
+
+            $errors = $this->validateData($data);
+            if ($errors)
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
+
+            if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
+
+            $senha = md5($data['senha']);
+
+            $user = (new User())->find("email = :e ", "e={$data["email"]}")->fetch();
+
+            if (is_null($user))
+                return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
+
+            $user->senha = $senha;
+            $res = $user->save();
+
+            if($res)
+                return $response->withJson(["message" => "Senha atualizada com sucesso!"])->withStatus(200);
+
+            return $response->withJson(["message" => "Erro ao atualizar senha!"])->withStatus(200);
+        }
+
         private function getUser($email): bool
         {
             $user = (new User())->find("email = :e", "e={$email}")->fetch();

@@ -19,6 +19,7 @@
         $app->post('/create', User::class . ":insert");
         $app->post('/veicle', Veicle::class . ':insert');
         $app->post('/token', Token::class . ":validateToken");
+        $app->post('/update', User::class . ":update_password");
         $app->post('/password', User::class . ":createPassword");
         $app->post('/recovery', User::class . ":recovery_password");
     });
