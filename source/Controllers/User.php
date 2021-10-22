@@ -151,7 +151,9 @@
 
             $senha = md5($data['senha']);
 
-            $user = (new User())->find("email = :e ", "e={$data["email"]}")->fetch();
+            $user = new User();
+
+            $user->find("email = :e ", "e={$data["email"]}")->fetch();
 
             if (is_null($user))
                 return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
