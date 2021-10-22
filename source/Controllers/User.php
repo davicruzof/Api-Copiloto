@@ -151,9 +151,7 @@
 
             $senha = md5($data['senha']);
 
-            $user = new User();
-
-            $user->find("email = :e ", "e={$data["email"]}")->fetch();
+            $user = (new User())->find("email = :e ", "e={$data["email"]}")->fetch();
 
             if (is_null($user))
                 return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
@@ -164,7 +162,7 @@
             if($res)
                 return $response->withJson(["message" => "Senha atualizada com sucesso!"])->withStatus(200);
 
-            return $response->withJson(["message" => "Erro ao atualizar senha!"])->withStatus(200);
+            return $response->withJson(["message" => $user->fail()->getMessage()])->withStatus(200);
         }
 
         private function getUser($email): bool
