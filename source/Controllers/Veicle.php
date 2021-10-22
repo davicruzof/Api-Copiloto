@@ -38,10 +38,8 @@
             if(!checkdate(intval($date[1]),intval($date[2]),intval($date[0])))
                 return $response->withJson(["message" => "Última revisão não é uma data inválido!"])->withStatus(200);
 
-            $user = $user->data();
-
             $veicle = new Veicle();
-            $veicle->idUser = $user->id;
+            $veicle->idUser = $user->idUser;
             $veicle->marca = $data['marca'];
             $veicle->modelo = $data['modelo'];
             $veicle->ano = $data['ano'];
