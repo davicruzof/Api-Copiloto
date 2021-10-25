@@ -28,7 +28,7 @@
 
     $app->group('/user', function () use ($app) {
         $app->get('/categorias', Categorias::class . ":categorias");
-        $app->get('/services', Service::class . ":services");
+        $app->post('/services', Service::class . ":services");
     });
 
     $app->run();
