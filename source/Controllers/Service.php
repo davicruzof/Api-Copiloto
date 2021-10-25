@@ -22,7 +22,7 @@
                 return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
 
             $serv = (new Service())
-                ->find('service_category_idCategoria = : s',"s={$data['id']}")
+                ->find('service_category_idCategoria = :s',"s={$data['id']}")
                 ->fetch(true);
             $categoriasArray = [];
             foreach ($serv as $c){
