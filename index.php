@@ -6,6 +6,7 @@
     use Source\Controllers\Terms;
     use Source\Controllers\Token;
     use Source\Controllers\Veicle;
+    use Source\Controllers\Categorias;
 
     $app = new \Slim\App([
         'settings' => [
@@ -22,6 +23,10 @@
         $app->post('/update', User::class . ":update_password");
         $app->post('/password', User::class . ":createPassword");
         $app->post('/recovery', User::class . ":recovery_password");
+    });
+
+    $app->group('/user', function () use ($app) {
+        $app->get('/categorias', Categorias::class . "categorias");
     });
 
     $app->run();
