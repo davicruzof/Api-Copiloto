@@ -17,8 +17,12 @@
         public function categorias(RequestInterface $request, ResponseInterface $response): ResponseInterface
         {
             $cat = (new Categorias())->find()->fetch(true);
+            $categoriasArray = [];
+            foreach ($cat as $c){
+                array_push($categoriasArray,$c->data);
+            }
             return $response->withJson([
-                "data" => isnull($cat) ? "Erro" : $cat->data(),
+                "data" => $categoriasArray,
             ])->withStatus(200);
         }
 

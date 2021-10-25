@@ -26,7 +26,7 @@
     });
 
     $app->group('/user', function () use ($app) {
-        $app->get('/categorias', Categorias::class . "categorias");
+        $app->get('/categorias', Categorias::class . ":categorias");
     });
 
     $app->run();
