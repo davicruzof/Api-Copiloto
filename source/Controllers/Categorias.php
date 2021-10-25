@@ -17,8 +17,9 @@
         public function categorias(RequestInterface $request, ResponseInterface $response): ResponseInterface
         {
             $cat = (new Categorias())->find()->fetch(true);
-            $cat= $cat->data();
-            return $response->withJson(["data" => $cat])->withStatus(200);
+            return $response->withJson([
+                "data" => isnull($cat) ? "Erro" : $cat->data(),
+            ])->withStatus(200);
         }
 
     }
