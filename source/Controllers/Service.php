@@ -10,7 +10,8 @@
     {
         public function __construct()
         {
-            parent::__construct("service", ["nome,service_category_idCategoria"], "idservice", true);
+            parent::__construct("service", ["nome,service_category_idCategoria"],
+                "idservice", true);
         }
 
         public function services(RequestInterface $request, ResponseInterface $response): ResponseInterface
