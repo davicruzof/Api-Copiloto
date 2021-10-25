@@ -7,6 +7,7 @@
     use Source\Controllers\Token;
     use Source\Controllers\Veicle;
     use Source\Controllers\Categorias;
+    use Source\Controllers\Service;
 
     $app = new \Slim\App([
         'settings' => [
@@ -27,6 +28,7 @@
 
     $app->group('/user', function () use ($app) {
         $app->get('/categorias', Categorias::class . ":categorias");
+        $app->get('/services', Service::class . ":services");
     });
 
     $app->run();
