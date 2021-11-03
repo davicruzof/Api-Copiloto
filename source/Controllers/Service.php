@@ -24,6 +24,7 @@
 
             $serv = (new Service())
                 ->find('service_category_idCategoria = :s',"s={$data['id']}")
+                ->limit($data['limit'])
                 ->fetch(true);
             $categoriasArray = [];
             foreach ($serv as $c){
