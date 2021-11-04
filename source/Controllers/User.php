@@ -29,9 +29,6 @@
 
             $existUser = $this->getUser($data["email"]);
 
-            if ($existUser)
-                return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
-
             if(strlen($data['telefone']) > 15)
                 return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(200);
 
@@ -51,6 +48,15 @@
             $user->email = $data["email"];
             $user->telefone = $data["telefone"];
             $user->sexo = $data["sexo"];
+
+            if ($existUser)
+                if($existUser->confirm)
+                    return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
+                else
+                    $result = (new Token())->insert($user->data());
+                    if($result)
+                        return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+
             $res = $user->save();
 
             if($res)
