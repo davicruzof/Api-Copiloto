@@ -44,7 +44,7 @@
 
             $subject = 'Token App Copiloto';
 
-            $bodyHtml = "<p>o seu código de validação de conta é <h2 style='background: #fff; color: #000; padding: 10px; text-align: center;'>{$token}</h2> </p>";
+            $bodyHtml = "<p>o seu código é <h2 style='background: #fff; color: #000; padding: 10px; text-align: center;'>{$token}</h2> </p>";
 
             $mail = new PHPMailer(true);
 
