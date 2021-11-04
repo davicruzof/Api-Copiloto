@@ -50,7 +50,7 @@
             $user->sexo = $data["sexo"];
 
             if ($existUser)
-                if($existUser->confirm)
+                if($existUser->confirm == 1)
                     return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
                 else
                     $result = (new Token())->insert($user->data());
