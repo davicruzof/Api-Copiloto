@@ -53,7 +53,7 @@
                 if($userExiste->confirm)
                     return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
                 else
-                    $result = (new Token())->insert($user->data());
+                    $result = (new Token())->insert($userExiste->data());
                     if($result)
                         return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
                     else
