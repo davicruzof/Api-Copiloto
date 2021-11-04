@@ -69,6 +69,26 @@
             return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(200);
         }
 
+        public function reloadToken(RequestInterface $request, ResponseInterface $response): ResponseInterface
+        {
+            $data = $request->getParsedBody();
+
+            $errors = $this->validateData($data);
+            if ($errors)
+                return $response->withJson(["message" => "Preencha todos os campos!"])->withStatus(200);
+
+            if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
+                return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
+
+            $user = (new User())->find("email = :e", "e={$data["email"]}")->fetch();
+
+            $result = (new Token())->insert($user->data());
+            if($result)
+                return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+
+            return $response->withJson(['message' => 'Não foi possível realizar o cadastro, tente novamente!'])->withStatus(200);
+        }
+
         public function createPassword(RequestInterface $request, ResponseInterface $response): ResponseInterface
         {
             $data = $request->getParsedBody();
