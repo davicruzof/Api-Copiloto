@@ -27,8 +27,6 @@
             if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
                 return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
 
-            $existUser = $this->getUser($data["email"]);
-
             if(strlen($data['telefone']) > 15)
                 return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(200);
 
@@ -49,8 +47,10 @@
             $user->telefone = $data["telefone"];
             $user->sexo = $data["sexo"];
 
-            if ($existUser)
-                if($existUser->confirm == 1)
+            $userExiste = (new User())->find("email = :e", "e={$data["email"]}")->fetch();
+
+            if ($userExiste)
+                if($userExiste->confirm)
                     return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
                 else
                     $result = (new Token())->insert($user->data());
