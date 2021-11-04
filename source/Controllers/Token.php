@@ -95,6 +95,9 @@
                 if($this->refreshToken($data["idUser"],$data->email))
                     return $response->withJson(["message" => "Código expirado! Um novo código foi enviado para o seu email!"])->withStatus(204);
             }else{
+                $user = (new User())->findById($tk->idUser);
+                $user->confirm = True;
+                $user->save();
                 $tk->destroy();
                 return $response->withJson(["message" => "token valido"])->withStatus(200);
             }
