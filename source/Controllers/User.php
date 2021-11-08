@@ -30,8 +30,8 @@
             if(strlen($data['telefone']) > 15)
                 return $response->withJson(["message" => "Telefone inválido, tente com outro!"])->withStatus(200);
 
-            if($data['sexo'] != "Feminino" && $data['sexo'] != "Masculino" && $data['sexo'] != "Não informar")
-                return $response->withJson(["message" => "Sexo inválido!"])->withStatus(200);
+            if($data['sexo'] != "Feminino" && $data['sexo'] != "Masculino" && $data['sexo'] != "Nullo")
+                return $response->withJson(["message" => "Genêro inválido!"])->withStatus(200);
 
             $date = str_replace("-","/",$data["data_nascimento"]);
 
