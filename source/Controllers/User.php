@@ -51,14 +51,15 @@
 
             if (!is_null($userExiste))
             {
-                if($userExiste->confirm)
+                if(!is_null($userExiste->senha)) {
                     return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
-                else
+                } else{
                     $result = (new Token())->insert($userExiste->data());
-                if($result)
-                    return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
-                else
-                    return $response->withJson(['message' => 'Não foi possível realizar o envio do código, tente novamente!'])->withStatus(200);
+                    if($result)
+                        return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+                    else
+                        return $response->withJson(['message' => 'Não foi possível realizar o envio do código, tente novamente!'])->withStatus(200);
+                }
             }
 
             $res = $user->save();
@@ -128,12 +129,13 @@
             if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL))
                 return $response->withJson(["message" => "Email inválido, tente com outro!"])->withStatus(200);
 
-            $existUser = $this->getUser($data["email"]);
+            $user = (new User())->find('email = :e',"e={$data['email']}")->fetch();
 
-            if (!$existUser)
+            if (is_null($user))
                 return $response->withJson(["message" => "Usuário não encontrado!"])->withStatus(200);
 
-            $user = (new User())->find('email = :e',"e={$data['email']}")->fetch();
+            if(is_null($user->senha))
+                return $response->withJson(['message' => 'Finalize o seu cadastro para acessar!'])->withStatus(200);
 
             $result = (new Token())->insert($user->data());
 
@@ -186,6 +188,10 @@
             if (is_null($user))
                 return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
 
+            if(is_null($user->senha))
+                return $response->withJson(['message' => 'Finalize o seu cadastro para acessar!'])->withStatus(200);
+
+
             $user->senha = $senha;
             $res = $user->save();
 
@@ -193,12 +199,6 @@
                 return $response->withJson(["message" => "Senha criada com sucesso!"])->withStatus(200);
 
             return $response->withJson(["message" => $user->fail()->getMessage()])->withStatus(200);
-        }
-
-        private function getUser($email): bool
-        {
-            $user = (new User())->find("email = :e", "e={$email}")->fetch();
-            return is_null($user) ? false : true;
         }
 
         private function validateData($data): bool
