@@ -50,14 +50,16 @@
             $userExiste = (new User())->find("email = :e", "e={$data["email"]}")->fetch();
 
             if (!is_null($userExiste))
+            {
                 if($userExiste->confirm)
                     return $response->withJson(["message" => "Usuário já cadastrado, realize login!"])->withStatus(200);
                 else
                     $result = (new Token())->insert($userExiste->data());
-                    if($result)
-                        return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
-                    else
-                        return $response->withJson(['message' => 'Não foi possível realizar o envio do código, tente novamente!'])->withStatus(200);
+                if($result)
+                    return $response->withJson(['message' => 'Um código foi enviado para o seu email'])->withStatus(200);
+                else
+                    return $response->withJson(['message' => 'Não foi possível realizar o envio do código, tente novamente!'])->withStatus(200);
+            }
 
             $res = $user->save();
 
