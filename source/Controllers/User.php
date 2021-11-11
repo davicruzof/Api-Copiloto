@@ -188,10 +188,6 @@
             if (is_null($user))
                 return $response->withJson(["message" => "Email invalido!"])->withStatus(200);
 
-            if(is_null($user->senha))
-                return $response->withJson(['message' => 'Finalize o seu cadastro para acessar!'])->withStatus(200);
-
-
             $user->senha = $senha;
             $res = $user->save();
 
